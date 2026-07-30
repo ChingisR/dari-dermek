@@ -39,11 +39,13 @@ jobs:
       - name: Build Kotlin framework for iOS Simulator (arm64)
         run: |
           ./gradlew :shared:linkDebugFrameworkIosSimulatorArm64 --no-daemon
-          mkdir -p shared/build/xcode-frameworks/Debug/iphonesimulator
+          SDK_NAME=$(xcrun --sdk iphonesimulator --show-sdk-version | xargs -I{} echo "iphonesimulator{}")
+          echo "Target SDK folder: $SDK_NAME"
+          mkdir -p "shared/build/xcode-frameworks/Debug/$SDK_NAME"
           cp -Rf shared/build/bin/iosSimulatorArm64/debugFramework/shared.framework \
-              shared/build/xcode-frameworks/Debug/iphonesimulator/
+              "shared/build/xcode-frameworks/Debug/$SDK_NAME/"
           echo "Framework built:"
-          ls shared/build/xcode-frameworks/Debug/iphonesimulator/
+          ls "shared/build/xcode-frameworks/Debug/$SDK_NAME/"
 
       - name: Select Xcode version
         run: sudo xcode-select -s /Applications/Xcode.app
