@@ -154,7 +154,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode --no-daemon\n";
+			shellScript = "FRAMEWORK_PATH=\"$SRCROOT/../shared/build/xcode-frameworks/$CONFIGURATION/$SDK_NAME/shared.framework\"\nif [ -d \"$FRAMEWORK_PATH\" ]; then\n    echo \"[skip] shared.framework already present\"\nelse\n    cd \"$SRCROOT/..\"\n    ./gradlew :shared:embedAndSignAppleFrameworkForXcode --no-daemon\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
