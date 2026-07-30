@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: dari-postgres
+    environment:
+      POSTGRES_DB: dari_dermek
+      POSTGRES_USER: dari
+      POSTGRES_PASSWORD: dari_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - dari_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dari -d dari_dermek"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    container_name: dari-server
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/dari_dermek
+      DB_USER: dari
+      DB_PASSWORD: dari_password
+      PORT: "8081"
+    ports:
+      - "8081:8081"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: dari-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - server
+
+volumes:
+  dari_pgdata:

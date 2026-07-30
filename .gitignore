@@ -1,0 +1,55 @@
+# Gradle
+.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA / Android Studio
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.DS_Store
+
+# Android
+local.properties
+*.ap_
+*.apk
+*.aab
+
+# Kotlin
+.kotlin/
+kotlin-js-store/
+
+# Web
+node_modules/
+dist/
+
+# iOS
+iosApp/DerivedData/
+iosApp/*.xcworkspace/xcuserdata/
+iosApp/*.xcodeproj/xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Temporary screenshot files from dev session
+wasm_*.png
+*.png
+!**/Contents.json
+!**/AppIcon.appiconset/*.png
+!**/AppIcon.appiconset/**/*.png
+
+# Server
+server/.env
+*.env
+
+# Build redirected cache
+C:/temp/dari-dermek-build/

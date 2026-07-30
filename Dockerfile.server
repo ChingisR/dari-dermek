@@ -1,0 +1,17 @@
+FROM gradle:8.11-jdk17 AS build
+WORKDIR /app
+COPY gradle/ gradle/
+COPY gradlew .
+COPY gradlew.bat .
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+COPY gradle.properties .
+COPY server/ server/
+COPY shared/ shared/
+RUN ./gradlew :server:installDist --no-daemon
+
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=build /app/server/build/install/server/ ./
+EXPOSE 8081
+CMD ["./bin/server"]
