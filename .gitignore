@@ -53,3 +53,8 @@ server/.env
 
 # Build redirected cache
 C:/temp/dari-dermek-build/
+
+# Android signing secrets
+androidApp/keystore.properties
+androidApp/*.jks
+androidApp/*.keystore
